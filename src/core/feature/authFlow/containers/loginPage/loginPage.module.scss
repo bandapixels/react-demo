@@ -1,0 +1,32 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .loginBox {
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 310px;
+    box-shadow: 0px 0px 24px rgba(183, 183, 183, 0.22);
+
+    .loginButton {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .tittle {
+      text-align: center;
+    }
+
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+
+      .input {
+        margin-top: 10px;
+      }
+    }
+  }
+}

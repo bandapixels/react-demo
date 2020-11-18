@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
 // import styles from './app.module.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { PrivateRoute } from './core/shared/privateRoute/PrivateRoute';
 import { LoginPage } from './core/feature/authFlow/containers/loginPage/loginPage';
 import { MainPage } from './core/feature/main/mainPage';
 
@@ -21,8 +22,8 @@ function App(): JSX.Element {
         <CssBaseline />
         <Router>
           <Switch>
-            <Route path="/" exact component={MainPage} />
             <Route path="/login" exact component={LoginPage} />
+            <PrivateRoute path="/" component={MainPage} />
             {/* <Route path="/registration" exact component={} /> */}
           </Switch>
         </Router>

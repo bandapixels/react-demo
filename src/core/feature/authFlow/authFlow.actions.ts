@@ -1,4 +1,4 @@
-import { Action } from '../../store/store';
+import { Action } from '../../store/action';
 import { LoginData } from '../../shared/interfaces/loginData';
 import { UserData } from '../../shared/interfaces/UserData';
 

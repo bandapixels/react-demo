@@ -8,19 +8,7 @@ export interface AppState {
   auth: AuthFlowState;
 }
 
-export class Action {
-  readonly type: string | undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload?: any;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toJSON(): Record<string, any> {
-    return { ...this };
-  }
-}
-
-export default async (): Promise<Store> => {
+export default (): Store => {
   // eslint-disable-next-line
   const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -33,5 +21,7 @@ export default async (): Promise<Store> => {
 
   sagaMiddleware.run(rootSaga);
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return store;
 };

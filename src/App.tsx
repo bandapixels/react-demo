@@ -8,6 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { PrivateRoute } from './core/shared/privateRoute/PrivateRoute';
 import { LoginPage } from './core/feature/authFlow/containers/loginPage/loginPage';
 import { MainPage } from './core/feature/main/mainPage';
+import { RegisterPage } from './core/feature/authFlow/containers/register/RegisterPage';
 
 function App(): JSX.Element {
   return (
@@ -23,8 +24,8 @@ function App(): JSX.Element {
         <Router>
           <Switch>
             <Route path="/login" exact component={LoginPage} />
+            <Route path="/registration" exact component={RegisterPage} />
             <PrivateRoute path="/" component={MainPage} />
-            {/* <Route path="/registration" exact component={} /> */}
           </Switch>
         </Router>
       </StylesProvider>

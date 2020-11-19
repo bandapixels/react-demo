@@ -1,18 +1,17 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import styles from './loginPage.module.scss';
+import styles from './register.module.scss';
 
-export const LoginPage = (): JSX.Element => {
+export const RegisterPage = (): JSX.Element => {
   const [values, setValues] = useState({
+    name: '',
     email: '',
     password: '',
   });
-
-  const handleSubmit = (): void => {};
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setValues({
@@ -21,11 +20,13 @@ export const LoginPage = (): JSX.Element => {
     });
   };
 
+  const handleSubmit = (): void => {};
+
   return (
     <Container className={styles.wrapper}>
-      <Box className={styles.loginBox}>
+      <Box className={styles.registerBox}>
         <Typography className={styles.tittle} variant="subtitle1">
-          Login your account
+          Register your account
         </Typography>
         <ValidatorForm
           onSubmit={handleSubmit}
@@ -35,6 +36,16 @@ export const LoginPage = (): JSX.Element => {
           }}
         >
           <Box className={styles.inputGroup}>
+            <TextValidator
+              label="name"
+              name="name"
+              onChange={handleChange}
+              required
+              value={values.name}
+              validators={['required', 'isEmail']}
+              errorMessages={['this field is required', 'email is not valid']}
+              className={styles.input}
+            />
             <TextValidator
               label="email"
               name="email"
@@ -49,8 +60,8 @@ export const LoginPage = (): JSX.Element => {
             <TextValidator
               label="password"
               name="password"
-              value={values.password}
               type="password"
+              value={values.password}
               required
               onChange={handleChange}
               validators={['required', 'minNumber:8']}
@@ -58,7 +69,7 @@ export const LoginPage = (): JSX.Element => {
               className={styles.input}
             />
           </Box>
-          <Button className={styles.loginButton} color="primary" variant="contained">
+          <Button className={styles.registerButton} color="primary" variant="contained">
             Sign in
           </Button>
         </ValidatorForm>

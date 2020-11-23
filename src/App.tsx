@@ -7,7 +7,7 @@ import { StylesProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { PrivateRoute } from './core/shared/privateRoute/PrivateRoute';
 import { LoginPage } from './core/feature/authFlow/containers/loginPage/loginPage';
-import { MainPage } from './core/feature/main/mainPage';
+import MainPage from './core/feature/main/mainPage';
 import { RegisterPage } from './core/feature/authFlow/containers/register/RegisterPage';
 
 function App(): JSX.Element {

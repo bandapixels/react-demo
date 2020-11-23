@@ -5,7 +5,7 @@ const initialState: AuthFlowState = {
   user: { loginName: '' },
   loginResult: '',
   registrationResult: '',
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
 
 export default function (state = initialState, action: acts.AuthFlowActionsTypes): AuthFlowState {

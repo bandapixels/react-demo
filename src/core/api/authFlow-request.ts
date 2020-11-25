@@ -16,8 +16,13 @@ export class AuthFlowRequest {
   };
 
   public getNewToken = (refreshToken: string): Promise<AxiosResponse> => {
-    const url = api.schema + api.host + api.login;
-    return ax.post(url, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
+    const url = api.schema + api.host + api.newToken;
+    return ax.get(url, { headers: { Authorization: `Bearer ${refreshToken}` } });
+  };
+
+  public getName = (): Promise<AxiosResponse> => {
+    const url = api.schema + api.host + api.name;
+    return ax.get(url);
   };
 }
 

@@ -7,6 +7,8 @@ export enum AuthFlowActions {
   LOGIN_SUCCESS = '[auth flow] log in action success',
   LOGIN_FAILURE = '[auth flow] log in action failure',
 
+  Set_LOGGED_IN_STATE = '[auth flow] set logged in state',
+
   LOGOUT = '[auth flow] logout action',
   LOGOUT_SUCCESS = '[auth flow] logout action success',
   LOGOUT_FAILURE = '[auth flow] logout action failure',
@@ -18,6 +20,10 @@ export enum AuthFlowActions {
   GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN = '[auth flow] get access token via refresh token',
   GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN_SUCCESS = '[auth flow] get access token via refresh token sucess',
   GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN_FAILURE = '[auth flow] get access token via refresh token failure',
+
+  GET_NAME = '[auth flow] get name',
+  GET_NAME_SUCCESS = '[auth flow] get name success',
+  GET_NAME_FAILURE = '[auth flow] get name failure',
 }
 
 export class LoginAct extends Action {
@@ -30,10 +36,6 @@ export class LoginAct extends Action {
 
 export class LoginSuccessAct extends Action {
   readonly type = AuthFlowActions.LOGIN_SUCCESS;
-
-  constructor(public payload: { name: string }) {
-    super();
-  }
 }
 
 export class LoginFailureAct extends Action {
@@ -79,6 +81,30 @@ export class GetNewAccessTokenFailureAct extends Action {
   readonly type = AuthFlowActions.GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN;
 }
 
+export class GetNameAct extends Action {
+  readonly type = AuthFlowActions.GET_NAME;
+}
+
+export class GetNameSuccessAct extends Action {
+  readonly type = AuthFlowActions.GET_NAME_SUCCESS;
+
+  constructor(public payload: string) {
+    super();
+  }
+}
+
+export class GetNameFailureAct extends Action {
+  readonly type = AuthFlowActions.GET_NAME_FAILURE;
+}
+
+export class SetLoggedInState extends Action {
+  readonly type = AuthFlowActions.Set_LOGGED_IN_STATE;
+
+  constructor(public payload: boolean) {
+    super();
+  }
+}
+
 export type AuthFlowActionsTypes =
   | LoginAct
   | LoginSuccessAct
@@ -87,4 +113,10 @@ export type AuthFlowActionsTypes =
   | RegisterSuccessAct
   | RegisterFailureAct
   | LogoutAct
-  | GetNewAccessTokenAct;
+  | GetNewAccessTokenAct
+  | GetNewAccessTokenSuccessAct
+  | GetNewAccessTokenFailureAct
+  | GetNameAct
+  | GetNameSuccessAct
+  | GetNameFailureAct
+  | SetLoggedInState;

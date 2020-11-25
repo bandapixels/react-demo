@@ -11,10 +11,22 @@ function* watchGetLogin(): SagaIterator {
       const { data } = yield call(AuthFlowRequest.sendLoginData, payload);
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
-      yield put(new authFlowActs.LoginSuccessAct({ name: data.name }));
-      history.push('/');
+      yield put(new authFlowActs.LoginSuccessAct());
+      yield call(history.push, '/');
     } catch (e) {
       yield put(new authFlowActs.LoginFailureAct());
+    }
+  }
+}
+
+function* getName(): SagaIterator {
+  while (true) {
+    try {
+      yield take(authFlowActs.AuthFlowActions.GET_NAME);
+      const { data } = yield call(AuthFlowRequest.getName);
+      yield put(new authFlowActs.GetNameSuccessAct(data.name));
+    } catch (e) {
+      yield put(new authFlowActs.GetNameFailureAct());
     }
   }
 }
@@ -39,7 +51,7 @@ function* watchGetRegistration(): SagaIterator {
     try {
       yield call(AuthFlowRequest.sendRegisterData, payload);
       yield put(new authFlowActs.RegisterSuccessAct());
-      history.push('/login');
+      yield call(history.push, '/login');
     } catch (e) {
       yield put(new authFlowActs.RegisterFailureAct());
     }
@@ -47,5 +59,5 @@ function* watchGetRegistration(): SagaIterator {
 }
 
 export default function* root(): SagaIterator {
-  yield all([fork(watchGetLogin), fork(watchLogout), fork(watchGetRegistration)]);
+  yield all([fork(watchGetLogin), fork(watchLogout), fork(watchGetRegistration), fork(getName)]);
 }

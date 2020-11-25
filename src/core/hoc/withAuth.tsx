@@ -2,23 +2,22 @@ import React, { Component, ReactElement, ReactNode } from 'react';
 import { Action } from 'redux';
 import { ax } from '../api/request';
 import AuthFlowRequest from '../api/authFlow-request';
+import api from '../shared/constant';
 
 interface ComposedComponentProps {
   LogoutAct: () => Action;
 }
 
-const getRefreshToken = async (token: string): Promise<string> => {
+const getRefreshToken = async (token: string): Promise<{ [key: string]: string }> => {
   const { data } = await AuthFlowRequest.getNewToken(token);
-  localStorage.setItem('accessToken', data.accessToken);
-  localStorage.setItem('refreshToken', data.refreshToken);
-  return data.accessToken;
+  return data;
 };
 
 export const withAuth = (WrappedComponent: ReactElement<JSX.Element>): ReactNode => {
   class ComposedComponent extends Component<ComposedComponentProps> {
     requestInterceptor = ax.interceptors.request.use((req) => {
       const token = localStorage.getItem('accessToken');
-      if (token) {
+      if (token && !req.headers.Authorization) {
         req.headers.Authorization = `Bearer ${token}`;
       }
       return req;
@@ -27,24 +26,29 @@ export const withAuth = (WrappedComponent: ReactElement<JSX.Element>): ReactNode
     responseInterceptor = ax.interceptors.response.use(
       (res) => res,
       async (error) => {
-        const { status } = error;
+        const {
+          request: { status },
+        } = error;
         const { LogoutAct } = this.props;
 
         /** if access token expired */
-        if (status === 401) {
+        if (status === 401 && error.config.url !== `${api.schema + api.host}/refresh-token`) {
           const refreshToken = localStorage.getItem('refreshToken');
           if (!refreshToken) {
             LogoutAct();
           }
           const result = await getRefreshToken(refreshToken as string);
+          if (result) {
+            localStorage.setItem('accessToken', result.accessToken);
+            localStorage.setItem('refreshToken', result.refreshToken);
+            delete error.config.headers.Authorization;
+            return ax(error.config);
+          }
+        }
 
-          // eslint-disable-next-line no-console
-          console.log(result);
-        }
         /** if refresh token expired   */
-        if (status === 400) {
-          LogoutAct();
-        }
+        LogoutAct();
+        return Promise.reject(error);
       }
     );
 

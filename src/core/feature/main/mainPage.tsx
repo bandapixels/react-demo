@@ -8,13 +8,13 @@ import { connect, useDispatch } from 'react-redux';
 import { Action, Dispatch } from 'redux';
 import styles from './main.module.scss';
 import { withAuth } from '../../hoc/withAuth';
-import { LogoutAct, GetNewAccessTokenAct, LoginAct } from '../authFlow/authFlow.actions';
+import { LogoutAct, GetNewAccessTokenAct, GetNameAct } from '../authFlow/authFlow.actions';
 
 const MainPage = (): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(new LoginAct({ email: 'vladisto-tripisto@bad.com', password: 'secret' }));
+    dispatch(new GetNameAct());
   }, []);
 
   return (

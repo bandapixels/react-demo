@@ -4,10 +4,14 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { useDispatch } from 'react-redux';
 import styles from './register.module.scss';
+import { RegisterAct } from '../../authFlow.actions';
+import { RegisterData } from '../../../../shared/interfaces/registerData';
 
 export const RegisterPage = (): JSX.Element => {
-  const [values, setValues] = useState({
+  const dispatch = useDispatch();
+  const [values, setValues] = useState<RegisterData>({
     name: '',
     email: '',
     password: '',
@@ -21,8 +25,7 @@ export const RegisterPage = (): JSX.Element => {
   };
 
   const handleSubmit = (): void => {
-    // eslint-disable-next-line no-console
-    console.log(1);
+    dispatch(new RegisterAct(values));
   };
 
   return (
@@ -45,8 +48,8 @@ export const RegisterPage = (): JSX.Element => {
               onChange={handleChange}
               required
               value={values.name}
-              validators={['required', 'isEmail']}
-              errorMessages={['this field is required', 'email is not valid']}
+              validators={['required']}
+              errorMessages={['this field is required']}
               className={styles.input}
             />
             <TextValidator
@@ -67,12 +70,12 @@ export const RegisterPage = (): JSX.Element => {
               value={values.password}
               required
               onChange={handleChange}
-              validators={['required', 'minNumber:8']}
-              errorMessages={['this field is required', 'password must be 8 digits']}
+              validators={['required']}
+              errorMessages={['this field is required']}
               className={styles.input}
             />
           </Box>
-          <Button className={styles.registerButton} color="primary" variant="contained">
+          <Button type="submit" className={styles.registerButton} color="primary" variant="contained">
             Sign in
           </Button>
         </ValidatorForm>

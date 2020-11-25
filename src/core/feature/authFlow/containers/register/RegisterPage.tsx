@@ -20,7 +20,10 @@ export const RegisterPage = (): JSX.Element => {
     });
   };
 
-  const handleSubmit = (): void => {};
+  const handleSubmit = (): void => {
+    // eslint-disable-next-line no-console
+    console.log(1);
+  };
 
   return (
     <Container className={styles.wrapper}>

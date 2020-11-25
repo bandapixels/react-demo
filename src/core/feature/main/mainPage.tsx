@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import { Toolbar } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Action, Dispatch } from 'redux';
 import styles from './main.module.scss';
 import { withAuth } from '../../hoc/withAuth';
-import { LogOutAct, GetNewAccessTokenAct } from '../authFlow/authFlow.actions';
+import { LogoutAct, GetNewAccessTokenAct, LoginAct } from '../authFlow/authFlow.actions';
 
 const MainPage = (): JSX.Element => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(new LoginAct({ email: 'vladisto-tripisto@bad.com', password: 'secret' }));
+  }, []);
+
   return (
     <Box className={styles.wrapper}>
       <AppBar>
@@ -24,13 +30,13 @@ const MainPage = (): JSX.Element => {
 };
 
 interface MapDispatchInterface {
-  loginOutAct: () => Action;
+  LogoutAct: () => Action;
   getNewAccessToken: () => Action;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchInterface => {
   return {
-    loginOutAct: (): Action => dispatch(new LogOutAct()),
+    LogoutAct: (): Action => dispatch(new LogoutAct()),
     getNewAccessToken: (): Action => dispatch(new GetNewAccessTokenAct()),
   };
 };

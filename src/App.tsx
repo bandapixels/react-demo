@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Helmet } from 'react-helmet';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
 // import styles from './app.module.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +9,7 @@ import { PrivateRoute } from './core/shared/privateRoute/PrivateRoute';
 import { LoginPage } from './core/feature/authFlow/containers/loginPage/loginPage';
 import MainPage from './core/feature/main/mainPage';
 import { RegisterPage } from './core/feature/authFlow/containers/register/RegisterPage';
+import history from './history';
 
 function App(): JSX.Element {
   return (
@@ -21,11 +22,12 @@ function App(): JSX.Element {
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </Helmet>
         <CssBaseline />
-        <Router>
+        <Router history={history}>
           <Switch>
             <Route path="/login" exact component={LoginPage} />
             <Route path="/registration" exact component={RegisterPage} />
             <PrivateRoute path="/" component={MainPage} />
+            <Redirect to="/login" />
           </Switch>
         </Router>
       </StylesProvider>

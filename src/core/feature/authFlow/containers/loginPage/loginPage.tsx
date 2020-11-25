@@ -4,15 +4,21 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { useDispatch } from 'react-redux';
 import styles from './loginPage.module.scss';
+import { LoginAct } from '../../authFlow.actions';
 
 export const LoginPage = (): JSX.Element => {
+  const dispatch = useDispatch();
+
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
 
-  const handleSubmit = (): void => {};
+  const handleSubmit = (): void => {
+    dispatch(new LoginAct(values));
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setValues({
@@ -53,12 +59,12 @@ export const LoginPage = (): JSX.Element => {
               type="password"
               required
               onChange={handleChange}
-              validators={['required', 'minNumber:8']}
-              errorMessages={['this field is required', 'password must be 8 digits']}
+              validators={['required']}
+              errorMessages={['this field is required']}
               className={styles.input}
             />
           </Box>
-          <Button className={styles.loginButton} color="primary" variant="contained">
+          <Button type="submit" className={styles.loginButton} color="primary" variant="contained">
             Sign in
           </Button>
         </ValidatorForm>

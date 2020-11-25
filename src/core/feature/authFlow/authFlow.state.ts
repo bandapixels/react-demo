@@ -1,7 +1,5 @@
-import { UserData } from '../../shared/interfaces/UserData';
-
 export interface AuthFlowState {
-  user: UserData;
+  user: { name: string };
   isLoggedIn: boolean;
   loginResult: string;
   registrationResult: string;

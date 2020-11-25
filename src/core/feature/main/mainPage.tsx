@@ -4,14 +4,18 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import { Toolbar } from '@material-ui/core';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Action, Dispatch } from 'redux';
 import styles from './main.module.scss';
 import { withAuth } from '../../hoc/withAuth';
 import { LogoutAct, GetNewAccessTokenAct, GetNameAct } from '../authFlow/authFlow.actions';
+import { getName } from '../authFlow/authFlow.selectors';
+import { AppState } from '../../store/store';
 
 const MainPage = (): JSX.Element => {
   const dispatch = useDispatch();
+
+  const name = useSelector((state: AppState) => getName(state));
 
   useEffect(() => {
     dispatch(new GetNameAct());
@@ -25,6 +29,9 @@ const MainPage = (): JSX.Element => {
           <Button color="inherit">logout</Button>
         </Toolbar>
       </AppBar>
+      <Typography className={styles.name} variant="h4">
+        Hi {name}!
+      </Typography>
     </Box>
   );
 };

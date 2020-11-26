@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose, Store } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
@@ -8,28 +8,24 @@ export interface AppState {
   auth: AuthFlowState;
 }
 
-export default (): Store => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const actionTransform = () => (next) => (action) => {
-    const act = action.toJSON ? action.toJSON() : action;
-    return next(act);
-  };
-
-  // eslint-disable-next-line
-  const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-  const sagaMiddleware = createSagaMiddleware();
-  const initialState = {};
-
-  const middleware = [sagaMiddleware, actionTransform];
-
-  const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(...middleware)));
-
-  sagaMiddleware.run(rootSaga);
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return store;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const actionTransform = () => (next) => (action) => {
+  const act = action.toJSON ? action.toJSON() : action;
+  return next(act);
 };
+
+// eslint-disable-next-line
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const sagaMiddleware = createSagaMiddleware();
+const initialState = {};
+
+const middleware = [sagaMiddleware, actionTransform];
+
+const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(...middleware)));
+
+sagaMiddleware.run(rootSaga);
+
+export default store;

@@ -12,7 +12,11 @@ import { LogoutAct, GetNameAct } from '../authFlow/authFlow.actions';
 import { getName } from '../authFlow/authFlow.selectors';
 import { AppState } from '../../store/store';
 
-const MainPage = (): JSX.Element => {
+interface MainPageProps {
+  LogoutAct: () => Action;
+}
+
+const MainPage: React.FunctionComponent<MainPageProps> = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const name = useSelector((state: AppState) => getName(state));
@@ -48,6 +52,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchInterface => {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export default connect(null, mapDispatchToProps)(withAuth(MainPage));

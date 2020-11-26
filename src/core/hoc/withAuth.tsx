@@ -1,4 +1,4 @@
-import React, { Component, ReactElement, ReactNode } from 'react';
+import React, { Component, FunctionComponent } from 'react';
 import { Action } from 'redux';
 import { ax } from '../api/request';
 import AuthFlowRequest from '../api/authFlow-request';
@@ -13,7 +13,9 @@ const getRefreshToken = async (token: string): Promise<{ [key: string]: string }
   return data;
 };
 
-export const withAuth = (WrappedComponent: ReactElement<JSX.Element>): ReactNode => {
+export const withAuth = (
+  WrappedComponent: FunctionComponent<ComposedComponentProps>
+): React.ComponentType<ComposedComponentProps> => {
   class ComposedComponent extends Component<ComposedComponentProps> {
     requestInterceptor = ax.interceptors.request.use((req) => {
       const token = localStorage.getItem('accessToken');

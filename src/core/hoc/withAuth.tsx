@@ -17,7 +17,7 @@ export const withAuth = (WrappedComponent: ReactElement<JSX.Element>): ReactNode
   class ComposedComponent extends Component<ComposedComponentProps> {
     requestInterceptor = ax.interceptors.request.use((req) => {
       const token = localStorage.getItem('accessToken');
-      if (token && !req.headers.Authorization) {
+      if (token) {
         req.headers.Authorization = `Bearer ${token}`;
       }
       return req;

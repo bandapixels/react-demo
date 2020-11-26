@@ -1,26 +1,26 @@
-import { AxiosResponse } from 'axios';
+import { AxiosPromise } from 'axios';
 import { ax } from './request';
-import { LoginData } from '../shared/interfaces/loginData';
+import { AuthData } from '../shared/interfaces/authData';
 import { RegisterData } from '../shared/interfaces/registerData';
 import api from '../shared/constant';
 
 export class AuthFlowRequest {
-  public sendLoginData = (loginData: LoginData): Promise<AxiosResponse> => {
+  public sendLoginData = (loginData: AuthData): AxiosPromise => {
     const url = api.schema + api.host + api.login;
     return ax.post(url, loginData);
   };
 
-  public sendRegisterData = (registerData: RegisterData): Promise<AxiosResponse> => {
+  public sendRegisterData = (registerData: RegisterData): AxiosPromise => {
     const url = api.schema + api.host + api.registration;
     return ax.post(url, registerData);
   };
 
-  public getNewToken = (refreshToken: string): Promise<AxiosResponse> => {
+  public getNewToken = (refreshToken: string): AxiosPromise => {
     const url = api.schema + api.host + api.newToken;
     return ax.post(url, { token: refreshToken });
   };
 
-  public getName = (): Promise<AxiosResponse> => {
+  public getName = (): AxiosPromise => {
     const url = api.schema + api.host + api.name;
     return ax.get(url);
   };

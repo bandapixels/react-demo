@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useDispatch } from 'react-redux';
-import styles from './register.module.scss';
+import styles from '../../../../shared/styles/authStyles.module.scss';
 import { RegisterAct } from '../../authFlow.actions';
 import { RegisterData } from '../../../../shared/interfaces/registerData';
 
@@ -30,17 +30,11 @@ export const RegisterPage = (): JSX.Element => {
 
   return (
     <Container className={styles.wrapper}>
-      <Box className={styles.registerBox}>
+      <Box className={styles.box}>
         <Typography className={styles.tittle} variant="subtitle1">
           Register your account
         </Typography>
-        <ValidatorForm
-          onSubmit={handleSubmit}
-          onError={(errors): void => {
-            // eslint-disable-next-line no-console
-            console.log(errors);
-          }}
-        >
+        <ValidatorForm onSubmit={handleSubmit}>
           <Box className={styles.inputGroup}>
             <TextValidator
               label="name"
@@ -48,8 +42,6 @@ export const RegisterPage = (): JSX.Element => {
               onChange={handleChange}
               required
               value={values.name}
-              validators={['required']}
-              errorMessages={['this field is required']}
               className={styles.input}
             />
             <TextValidator
@@ -59,8 +51,8 @@ export const RegisterPage = (): JSX.Element => {
               value={values.email}
               required
               onChange={handleChange}
-              validators={['required', 'isEmail']}
-              errorMessages={['this field is required', 'email is not valid']}
+              validators={['isEmail']}
+              errorMessages={['email is not valid']}
               className={styles.input}
             />
             <TextValidator
@@ -70,12 +62,10 @@ export const RegisterPage = (): JSX.Element => {
               value={values.password}
               required
               onChange={handleChange}
-              validators={['required']}
-              errorMessages={['this field is required']}
               className={styles.input}
             />
           </Box>
-          <Button type="submit" className={styles.registerButton} color="primary" variant="contained">
+          <Button type="submit" className={styles.authButton} color="primary" variant="contained">
             Sign in
           </Button>
         </ValidatorForm>

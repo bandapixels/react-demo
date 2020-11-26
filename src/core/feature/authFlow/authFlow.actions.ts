@@ -1,5 +1,5 @@
 import { Action } from '../../store/action';
-import { LoginData } from '../../shared/interfaces/loginData';
+import { AuthData } from '../../shared/interfaces/authData';
 import { RegisterData } from '../../shared/interfaces/registerData';
 
 export enum AuthFlowActions {
@@ -7,7 +7,7 @@ export enum AuthFlowActions {
   LOGIN_SUCCESS = '[auth flow] log in action success',
   LOGIN_FAILURE = '[auth flow] log in action failure',
 
-  Set_LOGGED_IN_STATE = '[auth flow] set logged in state',
+  SET_LOGGED_IN_STATE = '[auth flow] set logged in state',
 
   LOGOUT = '[auth flow] logout action',
   LOGOUT_SUCCESS = '[auth flow] logout action success',
@@ -17,10 +17,6 @@ export enum AuthFlowActions {
   REGISTER_SUCCESS = '[auth flow] register user success',
   REGISTER_FAILURE = '[auth flow] register user failure',
 
-  GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN = '[auth flow] get access token via refresh token',
-  GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN_SUCCESS = '[auth flow] get access token via refresh token sucess',
-  GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN_FAILURE = '[auth flow] get access token via refresh token failure',
-
   GET_NAME = '[auth flow] get name',
   GET_NAME_SUCCESS = '[auth flow] get name success',
   GET_NAME_FAILURE = '[auth flow] get name failure',
@@ -29,7 +25,7 @@ export enum AuthFlowActions {
 export class LoginAct extends Action {
   readonly type = AuthFlowActions.LOGIN;
 
-  constructor(public payload: LoginData) {
+  constructor(public payload: AuthData) {
     super();
   }
 }
@@ -69,18 +65,6 @@ export class RegisterFailureAct extends Action {
   readonly type = AuthFlowActions.REGISTER_FAILURE;
 }
 
-export class GetNewAccessTokenAct extends Action {
-  readonly type = AuthFlowActions.GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN;
-}
-
-export class GetNewAccessTokenSuccessAct extends Action {
-  readonly type = AuthFlowActions.GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN;
-}
-
-export class GetNewAccessTokenFailureAct extends Action {
-  readonly type = AuthFlowActions.GET_ACCESS_TOKEN_VIA_REFRESH_TOKEN;
-}
-
 export class GetNameAct extends Action {
   readonly type = AuthFlowActions.GET_NAME;
 }
@@ -98,7 +82,7 @@ export class GetNameFailureAct extends Action {
 }
 
 export class SetLoggedInState extends Action {
-  readonly type = AuthFlowActions.Set_LOGGED_IN_STATE;
+  readonly type = AuthFlowActions.SET_LOGGED_IN_STATE;
 
   constructor(public payload: boolean) {
     super();
@@ -113,9 +97,6 @@ export type AuthFlowActionsTypes =
   | RegisterSuccessAct
   | RegisterFailureAct
   | LogoutAct
-  | GetNewAccessTokenAct
-  | GetNewAccessTokenSuccessAct
-  | GetNewAccessTokenFailureAct
   | GetNameAct
   | GetNameSuccessAct
   | GetNameFailureAct

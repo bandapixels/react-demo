@@ -3,12 +3,11 @@ import './App.css';
 import { Helmet } from 'react-helmet';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
-// import styles from './app.module.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { PrivateRoute } from './core/shared/privateRoute/PrivateRoute';
+import { PrivateRoute } from './core/shared/privateRoute/privateRoute';
 import { LoginPage } from './core/feature/authFlow/containers/loginPage/loginPage';
 import MainPage from './core/feature/main/mainPage';
-import { RegisterPage } from './core/feature/authFlow/containers/register/RegisterPage';
+import { RegisterPage } from './core/feature/authFlow/containers/register/registerPage';
 import history from './history';
 
 function App(): JSX.Element {

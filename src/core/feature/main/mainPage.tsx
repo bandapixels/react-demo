@@ -8,7 +8,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { Action, Dispatch } from 'redux';
 import styles from './main.module.scss';
 import { withAuth } from '../../hoc/withAuth';
-import { LogoutAct, GetNewAccessTokenAct, GetNameAct } from '../authFlow/authFlow.actions';
+import { LogoutAct, GetNameAct } from '../authFlow/authFlow.actions';
 import { getName } from '../authFlow/authFlow.selectors';
 import { AppState } from '../../store/store';
 
@@ -26,7 +26,9 @@ const MainPage = (): JSX.Element => {
       <AppBar>
         <Toolbar className={styles.toolbar}>
           <Typography variant="h2">Main</Typography>
-          <Button color="inherit">logout</Button>
+          <Button color="inherit" onClick={(): Action => dispatch(new LogoutAct())}>
+            logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Typography className={styles.name} variant="h4">
@@ -38,13 +40,11 @@ const MainPage = (): JSX.Element => {
 
 interface MapDispatchInterface {
   LogoutAct: () => Action;
-  getNewAccessToken: () => Action;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchInterface => {
   return {
     LogoutAct: (): Action => dispatch(new LogoutAct()),
-    getNewAccessToken: (): Action => dispatch(new GetNewAccessTokenAct()),
   };
 };
 

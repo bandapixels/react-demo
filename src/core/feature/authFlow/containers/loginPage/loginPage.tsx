@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useDispatch } from 'react-redux';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { Link } from 'react-router-dom';
 import styles from '../../../../shared/authStyles/authStyles.module.scss';
 import { LoginAct } from '../../authFlow.actions';
 
@@ -54,9 +56,14 @@ export const LoginPage = (): JSX.Element => {
               className={styles.input}
             />
           </Box>
-          <Button type="submit" className={styles.authButton} color="primary" variant="contained">
-            Sign in
-          </Button>
+          <ButtonGroup className={styles.buttonGroup}>
+            <Button type="submit" className={styles.authButton} color="primary" variant="contained">
+              Sign in
+            </Button>
+            <Link to="/registration" className={styles.authButton}>
+              Registration
+            </Link>
+          </ButtonGroup>
         </ValidatorForm>
       </Box>
     </Container>

@@ -1,6 +1,6 @@
 export default {
-  schema: 'http://',
-  host: process.env.API_URL || 'localhost:3001',
+  schema: 'https://',
+  host: process.env.API_URL || 'simple-test-blog.herokuapp.com',
   registration: '/register',
   login: '/login',
   name: '/user/name',

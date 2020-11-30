@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useDispatch } from 'react-redux';
-import styles from '../../../../shared/styles/authStyles.module.scss';
+import styles from '../../../../shared/authStyles/authStyles.module.scss';
 import { RegisterAct } from '../../authFlow.actions';
 import { RegisterData } from '../../../../shared/interfaces/registerData';
 
